@@ -8,7 +8,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <flink.version>1.15.2</flink.version>
+        <flink.version>1.17.2</flink.version>
         <aws.kda.version>1.2.0</aws.kda.version>
 
         <target.java.version>11</target.java.version>
@@ -54,6 +54,12 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kinesis</artifactId>
+            <version>1.16.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka</artifactId>
             <version>${flink.version}</version>
         </dependency>
 
@@ -108,6 +114,18 @@
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
             <version>3.21.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-test-utils</artifactId>
+            <version>1.17.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

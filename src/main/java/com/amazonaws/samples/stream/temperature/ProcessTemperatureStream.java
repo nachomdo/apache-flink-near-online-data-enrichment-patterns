@@ -4,7 +4,6 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.samples.stream.temperature.enrichment.async.AsyncProcessTemperatureStreamStrategy;
 import com.amazonaws.samples.stream.temperature.enrichment.cached.CachedProcessTemperatureStreamStrategy;
 import com.amazonaws.samples.stream.temperature.enrichment.sync.SyncProcessTemperatureStreamStrategy;
-import com.amazonaws.samples.stream.temperature.utils.ParameterToolUtils;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.CheckpointingMode;
@@ -36,9 +35,11 @@ public class ProcessTemperatureStream {
             .getCurrentRegion()
             .getName();
 
+    public static final String DEFAULT_KAFKA_BROKERS = "localhost:9092";
+
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        ParameterTool parameter = ParameterToolUtils.getParameters(args, env);
+        ParameterTool parameter = ParameterTool.fromArgs(args);
 
         String strategy = parameter.get("EnrichmentStrategy", "SYNC");
         switch (strategy) {

@@ -13,6 +13,7 @@ import org.asynchttpclient.DefaultAsyncHttpClientConfig;
 import org.asynchttpclient.Dsl;
 import org.asynchttpclient.Response;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
@@ -25,6 +26,13 @@ public class AsyncEnrichmentFunction extends RichAsyncFunction<Temperature, Enri
     private final String getRequestUrl;
     private final ObjectMapper objectMapper;
     private transient AsyncHttpClient client;
+    private final static String[] SENSOR_BRANDS = {
+        "Ratchet", "Sprocket", "Trebek", "Ubert", "Vader", "Wiggum", "Xylophone", "Yoda", "Zoidberg"
+    };
+
+    private final static String[] COUNTRY_CODES = {
+        "US", "CA", "MX", "GB", "DE", "FR", "ES", "IT", "JP", "CN", "IN", "BR", "AU", "RU", "NL", "SE", "CH", "NO", "DK", "FI"
+    };
 
     public AsyncEnrichmentFunction(String url) {
         this.getRequestUrl = url;
@@ -54,16 +62,17 @@ public class AsyncEnrichmentFunction extends RichAsyncFunction<Temperature, Enri
         String url = this.getRequestUrl + temperature.getSensorId();
 
         // Retrieve response from sensor info API
-        Future<Response> future = client
-                .prepareGet(url)
-                .execute();
+//        Future<Response> future = client
+//                .prepareGet(url)
+//                .execute();
         CompletableFuture
                 .supplyAsync(() -> {
                     try {
-                        Response response = future.get();
-
-                        // Parse the sensor info as soon as it is available
-                        return parseSensorInfo(response.getResponseBody());
+                        //Response response = future.get();
+                        Thread.sleep((long) Math.random() * 1000);
+                        String brand = SENSOR_BRANDS[(int) (Math.random() * SENSOR_BRANDS.length)];
+                        String countryCode = COUNTRY_CODES[(int) (Math.random() * COUNTRY_CODES.length)];
+                        return new SensorInfo(temperature.getSensorId(),  brand, countryCode);
                     } catch (Exception e) {
                         return null;
                     }
