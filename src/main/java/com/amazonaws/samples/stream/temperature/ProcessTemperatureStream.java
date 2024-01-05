@@ -1,6 +1,5 @@
 package com.amazonaws.samples.stream.temperature;
 
-import com.amazonaws.regions.Regions;
 import com.amazonaws.samples.stream.temperature.enrichment.async.AsyncProcessTemperatureStreamStrategy;
 import com.amazonaws.samples.stream.temperature.enrichment.cached.CachedProcessTemperatureStreamStrategy;
 import com.amazonaws.samples.stream.temperature.enrichment.sync.SyncProcessTemperatureStreamStrategy;
@@ -31,9 +30,6 @@ public class ProcessTemperatureStream {
     public static final String DEFAULT_OUTPUT_STREAM_NAME = "enriched-sensor-stream";
 
     public static final String DEFAULT_API_URL = "https://dummyjson.com/products/";
-    public static final String DEFAULT_REGION_NAME = Regions.getCurrentRegion() == null ? "eu-central-1" : Regions
-            .getCurrentRegion()
-            .getName();
 
     public static final String DEFAULT_KAFKA_BROKERS = "localhost:9092";
 
